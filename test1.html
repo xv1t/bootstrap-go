@@ -9,15 +9,21 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        -->
+        <link href="vendor/bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="vendor/jquery-3.3.1.slim.min.js" type="text/javascript"></script>
+        <script src="vendor/popper.min.js" type="text/javascript"></script>
+        <script src="vendor/bootstrap-4.3.1-dist/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="js/BootstrapGo.js"></script>
     </head>
     <body>
         <div class="container">
-        <h1>Hello, world!</h1>
+        <h1>BootstrapGo test</h1>
         
         <button type="button" class="btn btn-primary">Primary</button>
 <button type="button" class="btn btn-secondary">Secondary</button><button type="button" class="btn btn-success">Success</button>
@@ -47,15 +53,34 @@ and open the template in the editor.
   </div>
 </div>
         
+        <div class="dropdown-menu">
+  <a class="dropdown-item" href="#">Regular link</a>
+  <a class="dropdown-item active" href="#">Active link</a>
+  <a class="dropdown-item" href="#">Another link</a>
+</div>
         
-        
+        <h2>cols test</h2>
+        <style>
+            .row .col,
+            .row .col-3,
+            .row .col-6,
+            .row .col-2
+            {
+                border: 1px solid black;
+            }
+        </style>
+        <div class="row">
+            <div class="col-6">A</div>
+            <div class="col-2">B</div>
+            <div class="col-6">C</div>
         </div>
+    </div>
         
         
         <script>
             
             btn1 = {
-                    label: 'Button 1',
+                    content: 'Button 1',
                     parent: '#container1',
                     style: 'success',
                     size: 'sm',
@@ -90,20 +115,122 @@ and open the template in the editor.
             
 
             
-            btn_toolbar1 = [ [btn1, btn2, btn1], {mx: 3, size: 'sm'} ];
-            btn_toolbar2 = [ [btn2, btn1], {size: 'sm'} ];
+            btn_group1 = {
+                    mx: 3, 
+                    size: 'sm',
+                    content: [btn1, btn2, btn1]
+                };
+                
+            btn_group2 =  {
+                size: 'sm',
+                content: [btn2, btn1, BootstrapGo.dropdownSingleButton({
+                        button: {
+                            content: 'dropdown1',
+                            //size: 'sm'
+                        },
+                        content: [
+                            {
+                                content: 'Action 1',
+                                href: 'http://yandex.ru',
+                                attr: {
+                                    target: 'blank'
+                                }
+                            },
+                            '-',
+                            {
+                                content: 'Action 2',
+                                
+                                on: {
+                                    click(){
+                                        alert('clicked')
+                                    }
+                                }
+                            }
+                        ]
+                })]
+            } ;
             
-            BootstrapGo.btnToolbar([btn_toolbar1, btn_toolbar2], {
-                parent: '#container1'
+            BootstrapGo.buttonToolbar({
+                content: [btn_group1, btn_group2]
+            }, '#container1');
+
+            $split_buttons = BootstrapGo.dropdownSplitButton({
+                class: 'dropright',
+                button: {
+                    content: 'Dropdown me 3 aplit',
+                    mt: 5,
+                    mb: 3,
+                    on: {
+                        click(){alert('its clicked')}
+                    }
+                },
+                content: [
+                    {
+                        content: 'Action1',
+                        on: {
+                            click(){
+                                alert('o-o-o-o-o-')
+                            }
+                        }
+                    },
+                    '-',
+                    {
+                        content: 'Action 2'
+                    }
+                ]
             });
             
-            bt = {
-                
-                elements: [
-                    
+            BootstrapGo.navTabs({
+                mt: 3,
+                mb: 3,
+                content: [
+                    {
+                        nav: 'Tab1',
+                        pane: 'Pane 123'
+                    },
+                    {
+                        //active: true,
+                        nav: {
+                            content: 'Tab2'
+                        },
+                        pane: {
+                            content: $split_buttons
+                        }
+                    }
                 ]
-            };
+            }, '#container1');
             
+            BootstrapGo.row({
+                col: 2,
+                mb: 4,
+                content: [
+                    1,2,3,4,5,6,3,7345,345,'to access',{
+                        col: 6,
+                        content: 'ooops',
+                        mb: 4,
+                    },345,345,345,354,35,4,4,4,1,2,3,45,8,9,
+                    BootstrapGo.button({
+                        size: 'sm'
+                    })
+                ]
+            }, '#container1');
+            
+            BootstrapGo.form({
+                method: 'POST',
+                action: '/api/find',                
+                content: [],
+                hidden: {
+                    'data[User][id]': 234,
+                    'data[User][giteg_id]': 17628
+                },
+                data: {
+                    User: {
+                        id: 32,
+                        name: 'admin',
+                        role_id: 1
+                    }
+                }
+            }, '#container1');
             
         </script>
     </body>
